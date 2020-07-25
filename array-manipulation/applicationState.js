@@ -89,7 +89,29 @@ class ApplicationState {
 
   // Gets the step name and task name for the task immediately after the currently active task
   getNextTask() {
- 
+    //Find the current task
+  	const current = this.getActiveTask();
+    
+    //Find current step and task index
+   	const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
+		const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
+    
+    //Check to see if it's the last task
+    if(current.taskName === 'Task G') return 'No other task left';
+    if(currTaskIndex + 1 === this.steps[currStepIndex].tasks.length) {
+    	//If it is return next step and first task
+    	return {
+      	stepName: this.steps[currStepIndex + 1].name,
+        taskName: this.steps[currStepIndex + 1].tasks[0].name
+      };
+		} else {
+    //Otherwise one to index to get the next step and task
+      return {
+      	stepName: current.stepName,
+        taskName: this.steps[currStepIndex].tasks[currTaskIndex + 1].name
+      };
+		}
+    	
   }
 
   // Gets the step name and task name for the task immediately before the currently active task
@@ -100,5 +122,5 @@ class ApplicationState {
 
 let state = new ApplicationState();
 
-state.setActiveTask('Step 3', 'Task F')
-console.log('test:', state.getActiveTask());
+// state.setActiveTask('Step 3', 'Task F')
+console.log('test:', state.getNextTask());
