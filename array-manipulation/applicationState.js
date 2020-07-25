@@ -49,7 +49,14 @@ class ApplicationState {
 
   // Returns the step name and task name of the currently active task
   getActiveTask() {
+ //find active steps
+    let activeStep = this.steps.find(step => step.status === 'active');
+    let activeTask = activeStep.tasks.find(task => task.status === 'active');
 
+    return {
+      stepName: activeStep.name,
+      taskName: activeTask.name
+    };
   }
 
   // Sets the provided step and task to 'active', 
@@ -71,3 +78,5 @@ class ApplicationState {
 }
 
 let state = new ApplicationState();
+
+console.log('test:', state.getActiveTask());
