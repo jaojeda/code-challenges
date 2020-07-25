@@ -63,7 +63,28 @@ class ApplicationState {
   // all preceding steps and tasks to 'complete',  
   // and all future steps and tasks to 'pristine'.
   setActiveTask(stepName, taskName) {
-
+    let stepStatus = 'complete';
+    let taskStatus = 'complete';
+    
+    this.steps.forEach(step => {
+    	if(step.name === stepName) {
+      	step.status = 'active';
+        stepStatus = 'pristine'
+			} else {
+      	step.status = stepStatus;
+			}
+      
+      
+      step.tasks.forEach(task => {
+				if(task.name === taskName) {
+        	task.status = 'active'
+          taskStatus = 'pristine'
+        } else {
+        	task.status = taskStatus;
+				}
+        
+      });  
+    });
   }
 
   // Gets the step name and task name for the task immediately after the currently active task
@@ -79,4 +100,5 @@ class ApplicationState {
 
 let state = new ApplicationState();
 
+state.setActiveTask('Step 3', 'Task F')
 console.log('test:', state.getActiveTask());
