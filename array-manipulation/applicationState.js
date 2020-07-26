@@ -116,11 +116,35 @@ class ApplicationState {
 
   // Gets the step name and task name for the task immediately before the currently active task
   getPreviousTask() {
- 
-  }
+     //Find current task
+     const current = this.getActiveTask();
+    
+     //Get indexes of step and task
+      const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
+     const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
+     
+     //Check to see if it's the first task
+     if(current.taskName === 'Task A') return 'No previous task available';
+     if(currTaskIndex === 0) {
+       //If it is return prev step and task
+       const prevStep = this.steps[currStepIndex - 1];
+       
+       return {
+         stepName: prevStep.name,
+         taskName: prevStep.tasks[prevStep.tasks.length - 1].name
+       }
+     } else {
+       //Otherwise return prev task
+       return {
+         stepName: current.stepName,
+         taskName: this.steps[currStepIndex].tasks[currTaskIndex - 1].name
+       }
+     }    
+   }
+  
 }
 
 let state = new ApplicationState();
 
-// state.setActiveTask('Step 3', 'Task F')
-console.log('test:', state.getNextTask());
+state.setActiveTask('Step 3', 'Task F')
+console.log('test:', state.getPreviousTask());
