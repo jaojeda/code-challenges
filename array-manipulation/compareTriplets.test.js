@@ -9,4 +9,10 @@ describe('compareTriplets', () => {
 
     expect(compareTriplets(a, b)).toEqual([2, 1])
   })
+
+  it('returns 0s if all scores are the same', () => {
+    const a = [1, 2, 3];
+
+    expect(compareTriplets(a, a)).toEqual([0, 0])
+  })
 })

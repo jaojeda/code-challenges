@@ -10,16 +10,16 @@ const compareTriplets = (a, b) => {
   return a.reduce((acc, num, i) => {
 
       if(num > b[i]) {
-          scoreA++
+          scoreA++;
       } else if(num < b[i]) {
-          scoreB++
+          scoreB++;
       }
 
-      acc[0] = scoreA
-      acc[1] = scoreB
+      acc[0] = scoreA;
+      acc[1] = scoreB;
 
-      return acc
-  }, [])
+      return acc;
+  }, []);
 }
 
 module.exports = { compareTriplets };
