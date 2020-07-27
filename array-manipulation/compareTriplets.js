@@ -5,7 +5,21 @@
 
 
 const compareTriplets = (a, b) => {
+  let scoreA = 0;
+  let scoreB = 0;
+  return a.reduce((acc, num, i) => {
 
+      if(num > b[i]) {
+          scoreA++
+      } else if(num < b[i]) {
+          scoreB++
+      }
+
+      acc[0] = scoreA
+      acc[1] = scoreB
+
+      return acc
+  }, [])
 }
 
 module.exports = { compareTriplets };
