@@ -4,6 +4,8 @@
  */
 
 
-function compareTriplets(a, b) {
+const compareTriplets = (a, b) => {
 
 }
+
+module.exports = { compareTriplets };
