@@ -1,7 +1,7 @@
 //Given a square matrix, calculate the absolute difference between the sums of its diagonals.
 
-function diagonalDifference(arr) {
-  
+const diagonalDifference = (arr) => {
+
   let diagA = 0;
   let diagB = 0;
   let diff;
@@ -14,3 +14,5 @@ function diagonalDifference(arr) {
 
   return diff < 0 ? diff * -1 : diff;
 }
+
+module.exports = { diagonalDifference };
