@@ -1,50 +1,7 @@
 class ApplicationState {
-  constructor() {
-    let stepOne = {
-      name: 'Step 1',
-      status: 'active',
-      tasks: [{
-        name: 'Task A',
-        status: 'active'
-      }, {
-        name: 'Task B',
-        status: 'pristine'
-      }, {
-        name: 'Task C',
-        status: 'pristine'
-      }]
-    };
-
-    let stepTwo = {
-      name: 'Step 2',
-      status: 'pristine',
-      tasks: [{
-        name: 'Task D',
-        status: 'pristine'
-      }]
-    };
-
-    let stepThree = {
-      name: 'Step 3',
-      status: 'pristine',
-      tasks: [{
-        name: 'Task E',
-        status: 'pristine'
-      }, {
-        name: 'Task F',
-        status: 'pristine'
-      }, {
-        name: 'Task G',
-        status: 'pristine'
-      }]
-    };
-
-
-    this.steps = [
-      stepOne,
-      stepTwo,
-      stepThree
-    ];
+  constructor(steps) {
+    
+    this.steps = steps;
   }
 
   // Returns the step name and task name of the currently active task
@@ -144,7 +101,51 @@ class ApplicationState {
   
 }
 
-let state = new ApplicationState();
+let stepOne = {
+  name: 'Step 1',
+  status: 'active',
+  tasks: [{
+    name: 'Task A',
+    status: 'active'
+  }, {
+    name: 'Task B',
+    status: 'pristine'
+  }, {
+    name: 'Task C',
+    status: 'pristine'
+  }]
+};
+
+let stepTwo = {
+  name: 'Step 2',
+  status: 'pristine',
+  tasks: [{
+    name: 'Task D',
+    status: 'pristine'
+  }]
+};
+
+let stepThree = {
+  name: 'Step 3',
+  status: 'pristine',
+  tasks: [{
+    name: 'Task E',
+    status: 'pristine'
+  }, {
+    name: 'Task F',
+    status: 'pristine'
+  }, {
+    name: 'Task G',
+    status: 'pristine'
+  }]
+};
+
+
+let state = new ApplicationState([
+  stepOne,
+  stepTwo,
+  stepThree
+]);
 
 state.setActiveTask('Step 3', 'Task F')
 console.log('test:', state.getPreviousTask());
