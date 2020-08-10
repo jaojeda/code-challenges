@@ -70,5 +70,17 @@ describe('ApplicationState class', () => {
     expect(state.getNextTask()).toBeUndefined();
   });
 
-  
+  it('gets the previous park', () => {
+    expect(state.getPreviousTask()).toEqual({ stepName: 'Step 3', taskName: 'Task F' });
+
+    state.setActiveTask('Step 2', 'Task D');
+
+    expect(state.getPreviousTask()).toEqual({ stepName: 'Step 1', taskName: 'Task C' });
+  });  
+
+  it('gets undefined if there is no previous task', () => {
+    state.setActiveTask('Step 1', 'Task A');
+
+    expect(state.getPreviousTask()).toBeUndefined();
+  });
 });
