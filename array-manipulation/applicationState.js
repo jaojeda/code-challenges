@@ -79,7 +79,7 @@ class ApplicationState {
     const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
      
     //Check to see if it's the first task
-    if(current.taskName === 'Task A') return 'No previous task available';
+    if(currStepIndex === 0 && currTaskIndex === 0) return undefined;
     if(currTaskIndex === 0) {
       //If it is return prev step and task
       const prevStep = this.steps[currStepIndex - 1];
