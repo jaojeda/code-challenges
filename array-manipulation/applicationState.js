@@ -1,12 +1,11 @@
 class ApplicationState {
-  constructor(steps) {
-    
+  constructor(steps) {  
     this.steps = steps;
   }
 
   // Returns the step name and task name of the currently active task
   getActiveTask() {
- //find active steps
+    //find active steps
     let activeStep = this.steps.find(step => step.status === 'active');
     let activeTask = activeStep.tasks.find(task => task.status === 'active');
 
@@ -24,21 +23,21 @@ class ApplicationState {
     let taskStatus = 'complete';
     
     this.steps.forEach(step => {
-    	if(step.name === stepName) {
-      	step.status = 'active';
-        stepStatus = 'pristine'
-			} else {
-      	step.status = stepStatus;
-			}
+      if(step.name === stepName) {
+        step.status = 'active';
+        stepStatus = 'pristine';
+      } else {
+        step.status = stepStatus;
+      }
       
       
       step.tasks.forEach(task => {
-				if(task.name === taskName) {
-        	task.status = 'active'
-          taskStatus = 'pristine'
+        if(task.name === taskName) {
+          task.status = 'active';
+          taskStatus = 'pristine';
         } else {
-        	task.status = taskStatus;
-				}
+          task.status = taskStatus;
+        }
         
       });  
     });
@@ -47,57 +46,56 @@ class ApplicationState {
   // Gets the step name and task name for the task immediately after the currently active task
   getNextTask() {
     //Find the current task
-  	const current = this.getActiveTask();
+    const current = this.getActiveTask();
     
     //Find current step and task index
-   	const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
-		const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
+    const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
+    const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
     
     //Check to see if it's the last task
-    if(current.taskName === 'Task G') return 'No other task left';
+    if(currStepIndex + 1 === this.steps.length && currTaskIndex + 1 === this.steps[currStepIndex].tasks.length) return undefined;
     if(currTaskIndex + 1 === this.steps[currStepIndex].tasks.length) {
-    	//If it is return next step and first task
-    	return {
-      	stepName: this.steps[currStepIndex + 1].name,
+    //If it is return next step and first task
+      return {
+        stepName: this.steps[currStepIndex + 1].name,
         taskName: this.steps[currStepIndex + 1].tasks[0].name
       };
-		} else {
+    } else {
     //Otherwise one to index to get the next step and task
       return {
-      	stepName: current.stepName,
+        stepName: current.stepName,
         taskName: this.steps[currStepIndex].tasks[currTaskIndex + 1].name
       };
-		}
-    	
+    }
   }
 
   // Gets the step name and task name for the task immediately before the currently active task
   getPreviousTask() {
-     //Find current task
-     const current = this.getActiveTask();
+    //Find current task
+    const current = this.getActiveTask();
     
-     //Get indexes of step and task
-      const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
-     const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
+    //Get indexes of step and task
+    const currStepIndex = this.steps.findIndex(step => step.name === current.stepName);
+    const currTaskIndex = this.steps[currStepIndex].tasks.findIndex(task => task.name === current.taskName);
      
-     //Check to see if it's the first task
-     if(current.taskName === 'Task A') return 'No previous task available';
-     if(currTaskIndex === 0) {
-       //If it is return prev step and task
-       const prevStep = this.steps[currStepIndex - 1];
+    //Check to see if it's the first task
+    if(current.taskName === 'Task A') return 'No previous task available';
+    if(currTaskIndex === 0) {
+      //If it is return prev step and task
+      const prevStep = this.steps[currStepIndex - 1];
        
-       return {
-         stepName: prevStep.name,
-         taskName: prevStep.tasks[prevStep.tasks.length - 1].name
-       }
-     } else {
-       //Otherwise return prev task
-       return {
-         stepName: current.stepName,
-         taskName: this.steps[currStepIndex].tasks[currTaskIndex - 1].name
-       }
-     }    
-   }
+      return {
+        stepName: prevStep.name,
+        taskName: prevStep.tasks[prevStep.tasks.length - 1].name
+      };
+    } else {
+      //Otherwise return prev task
+      return {
+        stepName: current.stepName,
+        taskName: this.steps[currStepIndex].tasks[currTaskIndex - 1].name
+      };
+    }    
+  }
   
 }
 
@@ -147,5 +145,5 @@ let state = new ApplicationState([
   stepThree
 ]);
 
-state.setActiveTask('Step 3', 'Task F')
+state.setActiveTask('Step 3', 'Task F');
 console.log('test:', state.getPreviousTask());
