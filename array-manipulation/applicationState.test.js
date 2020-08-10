@@ -53,7 +53,6 @@ describe('ApplicationState class', () => {
   });
   
   it('sets new active task', () => {
-
     state.setActiveTask('Step 2', 'Task D');
 
     expect(state.getActiveTask()).toEqual({ stepName: 'Step 2', taskName: 'Task D' });
@@ -61,4 +60,15 @@ describe('ApplicationState class', () => {
     expect(state.steps[2].status).toEqual('pristine');
   });
 
+  it('gets next task', () => {
+    expect(state.getNextTask()).toEqual({ stepName: 'Step 3', taskName: 'Task E' });
+  });
+
+  it('returns undefined if there is no more tasks after current', () => {
+    state.setActiveTask('Step 3', 'Task G');
+
+    expect(state.getNextTask()).toBeUndefined();
+  });
+
+  
 });
