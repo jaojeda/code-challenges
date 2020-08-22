@@ -1,0 +1,3 @@
+describe('Min Max Sum' () => {
+  
+})
