@@ -11,4 +11,12 @@ describe('Min Max Sum', () => {
     expect(console.log).toHaveBeenCalledWith('10 14');
   });
 
+  it('can deal with negative numbers', () => {
+    const arr = [-5, -2, 1, 2, 3];
+
+    console.log = jest.fn();
+    minMaxSum(arr);
+
+    expect(console.log).toHaveBeenCalledWith('-4 4');
+  });
 });
